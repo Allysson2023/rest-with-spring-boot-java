@@ -1,1 +1,3 @@
 br\com\allysson\Startup.class
+br\com\allysson\model\Person.class
+br\com\allysson\controllers\PersonController.class
