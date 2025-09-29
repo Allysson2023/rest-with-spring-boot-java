@@ -3,7 +3,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 
-import br.com.allysson.data.dto.PersonDTO;
+import br.com.allysson.data.dto.V1.PersonDTO;
 import br.com.allysson.mapper.ObjectMapper;
 import br.com.allysson.model.Person;
 import br.com.allysson.unitests.mapper.mocks.MockPerson;

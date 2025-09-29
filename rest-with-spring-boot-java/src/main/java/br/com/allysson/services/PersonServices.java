@@ -1,9 +1,12 @@
 package br.com.allysson.services;
 
-import br.com.allysson.data.dto.PersonDTO;
+import br.com.allysson.data.dto.V1.PersonDTO;
+import br.com.allysson.data.dto.V2.PersonDTOV2;
 import br.com.allysson.exception.ResourceNotFoundException;
 import static br.com.allysson.mapper.ObjectMapper.parseListObjects;
 import static br.com.allysson.mapper.ObjectMapper.parseObject;
+
+import br.com.allysson.mapper.custom.PersonMapper;
 import br.com.allysson.model.Person;
 import br.com.allysson.repository.PersonRepository;
 import org.slf4j.Logger;
@@ -23,6 +26,9 @@ public class PersonServices {
     @Autowired
     PersonRepository repository;
 
+    @Autowired
+    PersonMapper converter;
+
     public List<PersonDTO> findAll(){
         logger.info("Finding all Person! / Pegando todos os Id da Tabela...");
 
@@ -30,6 +36,7 @@ public class PersonServices {
     }
 
     public PersonDTO findBydId(Long id){
+
         logger.info("Finding one Person! / Pegando só um Id");
 
          var entity = repository.findById(id)
@@ -43,6 +50,14 @@ public class PersonServices {
         var entity = parseObject(person, Person.class);
 
         return parseObject(repository.save(entity), PersonDTO.class);
+    }
+
+    public PersonDTOV2 createV2(PersonDTOV2 person){
+        logger.info("Creando o PERSONDTOV2 no PATH personV2!");
+
+        var entity = converter.convertTODtoEntity(person);
+
+        return converter.convertEntityTODTO(repository.save(entity));
     }
 
     public PersonDTO update(PersonDTO person){
